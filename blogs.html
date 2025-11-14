@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - Geoffrey Akoo</title>
+    <meta name="description" content="IT insights and articles by Geoffrey Akoo on web development, networking, cybersecurity, and IT strategy.">
+    <meta name="author" content="Geoffrey Akoo">
+    <link rel="canonical" href="https://geoffreyakoo.com/blogs.html">
+    <meta property="og:title" content="IT Insights & Blog - Geoffrey Akoo">
+    <meta property="og:description" content="IT insights and articles by Geoffrey Akoo on web development, networking, cybersecurity, and IT strategy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://geoffreyakoo.com/blogs.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IT Insights & Blog - Geoffrey Akoo">
+    <meta name="twitter:description" content="IT insights and articles by Geoffrey Akoo on web development, networking, cybersecurity, and IT strategy.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            /* Use dark theme to match Tailwind utility classes on <body> */
+            background-color: #0f172a; /* slate-900 */
+            color: #cbd5e1; /* slate-300 */
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Blog Layout */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        /* Blog Posts */
+        .blog-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .blog-post {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .post-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-post:hover .post-img img {
+            transform: scale(1.05);
+        }
+        
+        .post-content {
+            padding: 1.5rem;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        
+        .post-meta i {
+            margin-right: 5px;
+        }
+        
+        .post-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--light);
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .post-category.web-dev {
+            background: rgba(52, 152, 219, 0.2);
+            color: var(--secondary);
+        }
+        
+        .post-category.network {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+        }
+        
+        .post-category.consulting {
+            background: rgba(155, 89, 182, 0.2);
+            color: #9b59b6;
+        }
+        
+        .post-category.specialist {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f39c12;
+        }
+        
+        .post-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .post-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .post-title a:hover {
+            color: var(--secondary);
+        }
+        
+        .post-excerpt {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Blog Sidebar */
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .widget-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            color: var(--primary);
+        }
+        
+        /* Search Widget */
+        .search-form {
+            display: flex;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-right: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .search-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background: #2980b9;
+        }
+        
+        /* Categories Widget */
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .categories-list a:hover {
+            color: var(--secondary);
+        }
+        
+        .category-count {
+            background: var(--light);
+            color: var(--gray);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* Recent Posts Widget */
+        .recent-posts {
+            list-style: none;
+        }
+        
+        .recent-post {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .recent-post-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .recent-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-post-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+        
+        .recent-post-content h4 a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .recent-post-content h4 a:hover {
+            color: var(--secondary);
+        }
+        
+        .recent-post-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Tags Widget */
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--light);
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Newsletter Widget */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .newsletter-input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 10px;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background: white;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .page-link:hover, .page-link.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-sidebar {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .post-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .post-meta span {
+                margin-right: 0;
+            }
+        }
+
+        /* ===== INTERACTIVE CSS ENHANCEMENTS ===== */
+
+        /* Global Transitions & Active States */
+        a, button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        button:active, a:active {
+            transform: scale(0.95);
+        }
+
+        button:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Blog Post with Overlay */
+        .blog-post {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .blog-post:hover::before {
+            opacity: 1;
+        }
+
+        /* Blog Post Image Zoom */
+        .post-img img {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .blog-post:hover .post-img img {
+            transform: scale(1.08) rotate(1deg);
+        }
+
+        /* Post Title Link Animation */
+        .post-title a {
+            position: relative;
+            color: var(--primary);
+        }
+
+        .post-title a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .post-title a:hover::after {
+            width: 100%;
+        }
+
+        /* Read More Link with Arrow Animation */
+        .read-more {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more i {
+            transition: transform 0.3s ease, margin-left 0.3s ease;
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+            margin-left: 5px;
+        }
+
+        /* Button Shimmer Effect */
+        .search-btn, .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-btn::before, .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .search-btn:hover::before, .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Category & Tag Links Animation */
+        .categories-list a, .tag {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .categories-list a:hover, .tag:hover {
+            padding-left: 0.5rem;
+            transform: translateX(5px);
+        }
+
+        /* Tag Hover with Scale & Rotate */
+        .tag {
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            transform: scale(1.15) rotate(-2deg);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Sidebar Widget Elevation */
+        .sidebar-widget {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-widget:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Input Focus Effects */
+        input[type="text"], input[type="email"], textarea {
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+            background: rgba(52, 152, 219, 0.05);
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.15);
+        }
+
+        /* Active Pagination Pulse */
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+
+        .page-link.active {
+            animation: pulse-ring 2s infinite;
+        }
+
+        /* Recent Post Thumbnail Zoom */
+        .recent-post-img img {
+            transition: transform 0.3s ease;
+        }
+
+        .recent-post:hover .recent-post-img img {
+            transform: scale(1.1);
+        }
+
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+            z-index: 60;
+            transition: width 0.1s linear;
+        }
+
+        /* Cursor follower (subtle) */
+        .cursor-follower {
+            position: fixed;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: rgba(96,165,250,0.12);
+            border: 2px solid rgba(99,102,241,0.9);
+            transform: translate(-50%, -50%);
+            z-index: 70;
+            mix-blend-mode: screen;
+            display: none; /* hidden on touch devices by default; JS can enable */
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Cursor Follower -->
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="home.html" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Geoffrey Akoo</a>
+                </div>
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="home.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Home</a>
+                    <a href="about.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">About</a>
+                    <a href="services.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Services</a>
+                    <a href="projects.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Projects</a>
+                    <a href="contact.html" class="text-cyan-400 px-3 py-2 font-medium nav-link">Contact</a>
+                    <a href="blogs.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Blogs</a>
+                </div>
+
+                <div class="hidden md:block">
+                    <a href="contact.html" class="cta-button bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 px-6 py-2 rounded-lg font-semibold">Get Started</a>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="mobileMenuButton" class="text-slate-300 hover:text-cyan-400" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle navigation">
+                        <i class="fas fa-bars text-xl" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="md:hidden hidden bg-slate-800 border-t border-slate-700" role="menu" aria-hidden="true">
+            <div class="px-4 py-4 space-y-2">
+                <a href="home.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Home</a>
+                <a href="about.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">About</a>
+                <a href="services.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Services</a>
+                <a href="projects.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Projects</a>
+                <a href="contact.html" class="block text-cyan-400 px-3 py-2 font-medium">Contact</a>
+                <a href="blogs.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Blogs</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- spacer for fixed nav -->
+    <div style="height:64px;"></div>
+
+    <section class="blog-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>IT Insights & Blog</h2>
+                <p>Stay updated with the latest trends, technologies, and best practices in web development, networking, and IT solutions</p>
+            </div>
+            
+            <div class="blog-container">
+                <div class="blog-posts">
+                    <!-- Blog Post 1 -->
+                    <article class="blog-post">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Web Development">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> June 15, 2023</span>
+                                <span><i class="far fa-clock"></i> 5 min read</span>
+                                <span><i class="far fa-comment"></i> 12 Comments</span>
+                            </div>
+                            <span class="post-category web-dev">Web Development</span>
+                            <h3 class="post-title"><a href="#">The Future of React: What's New in 2023</a></h3>
+                            <p class="post-excerpt">Explore the latest features and updates in React 18, including concurrent rendering, automatic batching, and new APIs that are changing how we build modern web applications.</p>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                <div class="post-tags">
+                                    <a href="#" class="tag">React</a>
+                                    <a href="#" class="tag">JavaScript</a>
+                                    <a href="#" class="tag">Frontend</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Blog Post 2 -->
+                    <article class="blog-post">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Network Security">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> May 28, 2023</span>
+                                <span><i class="far fa-clock"></i> 8 min read</span>
+                                <span><i class="far fa-comment"></i> 7 Comments</span>
+                            </div>
+                            <span class="post-category network">Network Engineering</span>
+                            <h3 class="post-title"><a href="#">Zero Trust Architecture: Securing Modern Networks</a></h3>
+                            <p class="post-excerpt">Discover how Zero Trust security models are revolutionizing network protection by eliminating implicit trust and continuously validating every stage of digital interaction.</p>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                <div class="post-tags">
+                                    <a href="#" class="tag">Security</a>
+                                    <a href="#" class="tag">Networking</a>
+                                    <a href="#" class="tag">Zero Trust</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Blog Post 3 -->
+                    <article class="blog-post">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="IT Consulting">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> April 12, 2023</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                                <span><i class="far fa-comment"></i> 15 Comments</span>
+                            </div>
+                            <span class="post-category consulting">IT Consulting</span>
+                            <h3 class="post-title"><a href="#">Digital Transformation Strategies for Small Businesses</a></h3>
+                            <p class="post-excerpt">Learn how small to medium businesses can successfully navigate digital transformation with practical strategies, tools, and implementation frameworks.</p>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                <div class="post-tags">
+                                    <a href="#" class="tag">Digital Transformation</a>
+                                    <a href="#" class="tag">Strategy</a>
+                                    <a href="#" class="tag">SMB</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Blog Post 4 -->
+                    <article class="blog-post">
+                        <div class="post-img">
+                            <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="IT Specialist">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 22, 2023</span>
+                                <span><i class="far fa-clock"></i> 7 min read</span>
+                                <span><i class="far fa-comment"></i> 9 Comments</span>
+                            </div>
+                            <span class="post-category specialist">IT Specialist</span>
+                            <h3 class="post-title"><a href="#">Optimizing ERP Systems for Maximum Efficiency</a></h3>
+                            <p class="post-excerpt">Explore best practices for implementing and optimizing Enterprise Resource Planning systems to streamline operations and improve business performance.</p>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                <div class="post-tags">
+                                    <a href="#" class="tag">ERP</a>
+                                    <a href="#" class="tag">Systems</a>
+                                    <a href="#" class="tag">Optimization</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Blog Sidebar -->
+                <div class="blog-sidebar">
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Search</h3>
+                        <form class="search-form">
+                            <input type="text" name="q" aria-label="Search articles" class="search-input" placeholder="Search articles...">
+                            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Categories</h3>
+                        <ul class="categories-list">
+                            <li>
+                                <a href="#">Web Development <span class="category-count">12</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Network Engineering <span class="category-count">8</span></a>
+                            </li>
+                            <li>
+                                <a href="#">IT Consulting <span class="category-count">15</span></a>
+                            </li>
+                            <li>
+                                <a href="#">IT Specialist <span class="category-count">10</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Cybersecurity <span class="category-count">7</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Cloud Computing <span class="category-count">9</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Recent Posts Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Recent Posts</h3>
+                        <ul class="recent-posts">
+                            <li class="recent-post">
+                                <div class="recent-post-img">
+                                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <h4><a href="#">The Future of React: What's New in 2023</a></h4>
+                                    <span class="recent-post-date">June 15, 2023</span>
+                                </div>
+                            </li>
+                            <li class="recent-post">
+                                <div class="recent-post-img">
+                                    <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <h4><a href="#">Zero Trust Architecture: Securing Modern Networks</a></h4>
+                                    <span class="recent-post-date">May 28, 2023</span>
+                                </div>
+                            </li>
+                            <li class="recent-post">
+                                <div class="recent-post-img">
+                                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Recent Post">
+                                </div>
+                                <div class="recent-post-content">
+                                    <h4><a href="#">Digital Transformation Strategies for Small Businesses</a></h4>
+                                    <span class="recent-post-date">April 12, 2023</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tags Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Popular Tags</h3>
+                        <div class="tags-list">
+                            <a href="#" class="tag">React</a>
+                            <a href="#" class="tag">JavaScript</a>
+                            <a href="#" class="tag">Node.js</a>
+                            <a href="#" class="tag">Security</a>
+                            <a href="#" class="tag">Networking</a>
+                            <a href="#" class="tag">Cloud</a>
+                            <a href="#" class="tag">AWS</a>
+                            <a href="#" class="tag">Azure</a>
+                            <a href="#" class="tag">ERP</a>
+                            <a href="#" class="tag">Digital Transformation</a>
+                            <a href="#" class="tag">Strategy</a>
+                            <a href="#" class="tag">Consulting</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="widget-title">Newsletter</h3>
+                        <p style="margin-bottom: 15px; color: var(--gray);">Subscribe to get the latest IT insights and updates directly to your inbox.</p>
+                        <form class="newsletter-form">
+                            <input type="email" name="email" aria-label="Your email address" class="newsletter-input" placeholder="Your email address" required>
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <strong class="text-white">Geoffrey Akoo</strong>
+                <div class="text-slate-400 text-sm">Web Development • Network Engineering • IT Consulting</div>
+            </div>
+
+                <div class="mt-4 md:mt-0">
+                <a href="mailto:geoffrey@geoffreyakoo.com" class="text-cyan-400 mr-4">geoffrey@geoffreyakoo.com</a>
+                <a href="https://instagram.com/geoffrey.akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 mr-3">Instagram</a>
+                <a href="https://linkedin.com/in/geoffrey-akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 mr-3">LinkedIn</a>
+                <a href="https://github.com/geoffreyakoo" target="_blank" rel="noopener noreferrer" class="text-slate-300">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Search + Newsletter handling (existing behavior preserved)
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.querySelector('.search-form');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchInput = this.querySelector('.search-input');
+                    const searchTerm = searchInput.value.trim();
+                    if (searchTerm) {
+                        alert(`Searching for: ${searchTerm}`);
+                        searchInput.value = '';
+                    }
+                });
+            }
+
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailInput = this.querySelector('.newsletter-input');
+                    const email = emailInput.value.trim();
+                    if (email) {
+                        alert(`Thank you for subscribing with: ${email}`);
+                        emailInput.value = '';
+                    }
+                });
+            }
+        });
+
+        // Mobile menu, scroll progress and cursor follower
+        (function(){
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const scrollProgress = document.getElementById('scrollProgress');
+            const cursor = document.getElementById('cursorFollower');
+
+            // Show cursor follower only on non-touch devices
+            if (cursor && !('ontouchstart' in window)) {
+                cursor.style.display = 'block';
+            }
+
+            function openMenu(){ if(mobileMenu){ mobileMenu.classList.remove('hidden'); mobileMenu.setAttribute('aria-hidden','false'); mobileMenuButton.setAttribute('aria-expanded','true'); } }
+            function closeMenu(){ if(mobileMenu){ mobileMenu.classList.add('hidden'); mobileMenu.setAttribute('aria-hidden','true'); mobileMenuButton.setAttribute('aria-expanded','false'); } }
+
+            if (mobileMenuButton){ mobileMenuButton.addEventListener('click', function(){ const open = mobileMenu && !mobileMenu.classList.contains('hidden'); if(open) closeMenu(); else openMenu(); }); }
+            document.querySelectorAll('#mobileMenu a').forEach(a=>a.addEventListener('click', closeMenu));
+            document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+            document.addEventListener('click', e => { if(!mobileMenu || !mobileMenuButton) return; if(mobileMenu.classList.contains('hidden')) return; if(!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) closeMenu(); });
+
+            window.addEventListener('scroll', function(){ const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const sc = (winScroll/height)*100; if(scrollProgress) scrollProgress.style.width = sc + '%'; });
+
+            if (cursor) document.addEventListener('mousemove', e => { cursor.style.transform = `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`; });
+        })();
+    </script>
+</body>
+</html>
