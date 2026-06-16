@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Geoffrey Akoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .code-font {
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(100, 255, 218, 0.1);
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: rgba(100, 255, 218, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #64ffda, #0ea5e9);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #64ffda;
+            animation: pulse 2s infinite;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5rem;
+            bottom: -1rem;
+            width: 2px;
+            background: rgba(100, 255, 218, 0.3);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.7);
+            animation: glow-pulse 2s infinite alternate;
+        }
+        
+        @keyframes glow-pulse {
+            from {
+                text-shadow: 0 0 5px rgba(100, 255, 218, 0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(100, 255, 218, 0.9);
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, -15px); }
+            100% { transform: translate(0, -0px); }
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* ===== INTERACTIVE CSS ENHANCEMENTS ===== */
+
+        /* Global Transitions & Active States */
+        a, button, .cta-button, input, textarea, select {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        button:active, a:active, .cta-button:active {
+            transform: scale(0.95);
+        }
+
+        button:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid #64ffda;
+            outline-offset: 2px;
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+        }
+
+        /* Card Hover with Shimmer */
+        .card-hover {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(100, 255, 218, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-hover:hover::before {
+            animation: card-shimmer 0.8s ease-in-out;
+        }
+
+        @keyframes card-shimmer {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); opacity: 0; }
+        }
+
+        /* Navigation Link Underline */
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #64ffda, #0ea5e9);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Skill Bar Animation & Shimmer */
+        .skill-bar {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: skill-shimmer 2s infinite;
+        }
+
+        @keyframes skill-shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Input Focus Effects */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            background: rgba(100, 255, 218, 0.05);
+            border-color: #64ffda;
+            transform: translateY(-2px);
+        }
+
+        /* Timeline Item Hover */
+        .timeline-item {
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(8px);
+        }
+
+        .timeline-item::before {
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover::before {
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
+        }
+
+        /* Enhanced Glow Pulse */
+        @keyframes glow-pulse-enhanced {
+            0%, 100% { text-shadow: 0 0 10px rgba(100, 255, 218, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(100, 255, 218, 1), 0 0 30px rgba(100, 255, 218, 0.5); }
+        }
+        
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: #64ffda;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particle-float 15s infinite linear;
+        }
+        
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #64ffda, #0ea5e9);
+            z-index: 100;
+            transition: width 0.1s;
+        }
+        
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+            mix-blend-mode: difference;
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 30;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+        }
+        
+        .icon-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover .icon-hover {
+            transform: scale(1.2) rotate(5deg);
+            color: #64ffda;
+        }
+        
+        .cta-button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.3);
+        }
+        
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #64ffda, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: #1e293b;
+            border-radius: 50%;
+        }
+        
+        .profile-image i {
+            font-size: 8rem;
+            color: #64ffda;
+            z-index: 1;
+        }
+        
+        .fun-fact-card {
+            transition: all 0.4s ease;
+        }
+        
+        .fun-fact-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(100, 255, 218, 0.2);
+        }
+        
+        .fun-fact-card:hover .fun-fact-icon {
+            transform: scale(1.3) rotate(10deg);
+            color: #64ffda;
+        }
+        
+        .fun-fact-icon {
+            transition: all 0.4s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor-follower" id="cursorFollower"></div>
+    
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon text-cyan-400" id="darkModeIcon"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 glow-text">
+                        Geoffrey Akoo
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="./index.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Home</a>
+                    <a href="./about.html" class="text-cyan-400 px-3 py-2 font-medium nav-link">About</a>
+                    <a href="./services.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Services</a>
+                    <a href="./projects.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Projects</a>
+                    <a href="./contact.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Contact</a>
+                    <a href="./blogs.html" class="text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium nav-link">Blogs</a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="./contact.html" class="cta-button bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 px-6 py-2 rounded-lg font-semibold hover:from-cyan-300 hover:to-blue-400">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="text-slate-300 hover:text-cyan-400" id="mobileMenuButton">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileMenu" class="md:hidden hidden bg-slate-800 border-t border-slate-700">
+                <div class="px-4 py-4 space-y-2">
+                    <a href="./index.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Home</a>
+                    <a href="./about.html" class="block text-cyan-400 px-3 py-2 font-medium">About</a>
+                    <a href="./services.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Services</a>
+                    <a href="portfolio/projects.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Projects</a>
+                    <a href="./contact.html" class="block text-slate-300 hover:text-cyan-400 px-3 py-2 font-medium">Contact</a>
+                    <a href="./blogs.html" class="block cta-button bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 px-6 py-2 rounded-lg font-semibold hover:from-cyan-300 hover:to-blue-400 mt-4">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-slate-800 relative">
+        <!-- Particle Background -->
+        <div class="particles" id="particlesContainer"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-100 mb-4 text-center glow-text">About Me</h2>
+                <p class="text-cyan-400 text-center mb-12 code-font">// Getting to know Geoffrey Akoo</p>
+                
+                <!-- Profile Section -->
+                <div class="grid lg:grid-cols-3 gap-12 items-center mb-16">
+                    <div class="lg:col-span-1 flex justify-center">
+                        <div class="profile-image floating">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <h3 class="text-2xl font-semibold text-slate-100 mb-4">Professional Data Analyst & Developer</h3>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                            With over 3 years of experience in technology and analytics, I help organizations turn raw data into 
+                            actionable insights. My expertise spans web development, Data Analytics, and strategic IT consulting.
+                        </p>
+                        <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                            I believe in building solutions that are not only technically sound but also deliver real business 
+                            value. Every project is an opportunity to solve complex problems and create meaningful impact for 
+                            clients and their customers.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-cyan-400/10 text-cyan-400 px-4 py-2 rounded-lg">
+                                <i class="fas fa-code mr-2"></i>Web Development
+                            </div>
+                            <div class="bg-cyan-400/10 text-cyan-400 px-4 py-2 rounded-lg">
+                                <i class="fas fa-chart-line mr-2"></i>Data Analytics
+                            </div>
+                            <div class="bg-cyan-400/10 text-cyan-400 px-4 py-2 rounded-lg">
+                                <i class="fas fa-laptop-medical mr-2"></i>IT Consulting
+                            </div>
+                            <div class="bg-cyan-400/10 text-cyan-400 px-4 py-2 rounded-lg">
+                                <i class="fas fa-cogs mr-2"></i>IT Specialist
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <!-- Left Column - Story & Values -->
+                    <div class="space-y-6">
+                        <!-- My Story -->
+                        <div class="bg-slate-900 p-8 rounded-lg border border-slate-700 card-hover slide-in-left">
+                            <h3 class="text-2xl font-semibold text-slate-100 mb-4 flex items-center">
+                                <i class="fas fa-user text-cyan-400 mr-3 icon-hover"></i>
+                                My Journey
+                            </h3>
+                            <p class="text-lg text-slate-400 mb-6 leading-relaxed">
+                                My journey in technology began during my university years studying Information Communication 
+                                Technology. What started as academic curiosity quickly evolved into a passion for solving 
+                                real-world problems through technology.
+                            </p>
+                            <p class="text-lg text-slate-400 mb-6 leading-relaxed">
+                                I've worked with businesses of all sizes, from startups to established enterprises, helping 
+                                them leverage technology to achieve their goals. Each project has taught me valuable lessons 
+                                about user needs, business requirements, and technical implementation.
+                            </p>
+                            <p class="text-lg text-slate-400 leading-relaxed">
+                                Today, I continue to learn and adapt in this rapidly evolving field, always seeking new 
+                                challenges and opportunities to create innovative solutions that make a difference.
+                            </p>
+                        </div>
+
+                        <!-- Values -->
+                        <div class="bg-slate-900 p-8 rounded-lg border border-slate-700 card-hover slide-in-left">
+                            <h3 class="text-2xl font-semibold text-slate-100 mb-6 flex items-center">
+                                <i class="fas fa-heart text-cyan-400 mr-3 icon-hover"></i>
+                                My Philosophy
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start timeline-item">
+                                    <i class="fas fa-lightbulb text-cyan-400 mt-1 mr-3 icon-hover"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-100">Innovation Through Simplicity</h4>
+                                        <p class="text-slate-400">The most elegant solutions are often the simplest ones that solve complex problems effectively.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start timeline-item">
+                                    <i class="fas fa-shield-alt text-cyan-400 mt-1 mr-3 icon-hover"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-100">Security First Approach</h4>
+                                        <p class="text-slate-400">Building secure foundations from the start ensures long-term reliability and trust.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start timeline-item">
+                                    <i class="fas fa-users text-cyan-400 mt-1 mr-3 icon-hover"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-100">Client-Centric Solutions</h4>
+                                        <p class="text-slate-400">Understanding business objectives drives the creation of truly valuable technical solutions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Details -->
+                    <div class="space-y-6">
+                        <!-- Quick Facts -->
+                        <div class="bg-slate-900 p-8 rounded-lg border border-slate-700 card-hover slide-in-right">
+                            <h3 class="text-2xl font-semibold text-slate-100 mb-6 flex items-center">
+                                <i class="fas fa-info-circle text-cyan-400 mr-3 icon-hover"></i>
+                                Professional Details
+                            </h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-graduation-cap text-cyan-400 mr-3 floating"></i>
+                                        <span class="text-slate-300">Education</span>
+                                    </div>
+                                    <span class="text-slate-100 font-semibold">BSc Information Communication Technology</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-map-marker-alt text-cyan-400 mr-3 floating"></i>
+                                        <span class="text-slate-300">Location</span>
+                                    </div>
+                                    <span class="text-slate-100 font-semibold">Lodwar, Nakuru Kenya</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-calendar text-cyan-400 mr-3 floating"></i>
+                                        <span class="text-slate-300">Experience</span>
+                                    </div>
+                                    <span class="text-slate-100 font-semibold">3+ Years</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-language text-cyan-400 mr-3 floating"></i>
+                                        <span class="text-slate-300">Languages</span>
+                                    </div>
+                                    <span class="text-slate-100 font-semibold">English, Swahili</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-briefcase text-cyan-400 mr-3 floating"></i>
+                                        <span class="text-slate-300">Availability</span>
+                                    </div>
+                                    <span class="text-slate-100 font-semibold">Open for Projects</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expertise Areas -->
+                        <div class="bg-slate-900 p-8 rounded-lg border border-slate-700 card-hover slide-in-right">
+                            <h3 class="text-2xl font-semibold text-slate-100 mb-6 flex items-center">
+                                <i class="fas fa-cogs text-cyan-400 mr-3 icon-hover"></i>
+                                Technical Expertise
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-code text-cyan-400 mr-3 icon-hover"></i>
+                                        <h4 class="font-semibold text-slate-100">Web Development</h4>
+                                    </div>
+                                    <p class="text-slate-400 text-sm">React, Node.js, Python, JavaScript, HTML5/CSS3</p>
+                                    <div class="skill-bar mt-2">
+                                        <div class="skill-progress" data-width="90"></div>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-network-wired text-cyan-400 mr-3 icon-hover"></i>
+                                        <h4 class="font-semibold text-slate-100">Data Analytics</h4>
+                                    </div>
+                                    <p class="text-slate-400 text-sm">Data cleaning, BI dashboarding, statistical analysis, and insight delivery</p>
+                                    <div class="skill-bar mt-2">
+                                        <div class="skill-progress" data-width="85"></div>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-laptop-medical text-cyan-400 mr-3 icon-hover"></i>
+                                        <h4 class="font-semibold text-slate-100">IT Consulting</h4>
+                                    </div>
+                                    <p class="text-slate-400 text-sm">Strategic Planning, Technology Assessment, Digital Transformation</p>
+                                    <div class="skill-bar mt-2">
+                                        <div class="skill-progress" data-width="88"></div>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-slate-800 rounded-lg card-hover">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-cogs text-cyan-400 mr-3 icon-hover"></i>
+                                        <h4 class="font-semibold text-slate-100">IT Specialist</h4>
+                                    </div>
+                                    <p class="text-slate-400 text-sm">System Administration, Technical Support, Infrastructure Management</p>
+                                    <div class="skill-bar mt-2">
+                                        <div class="skill-progress" data-width="92"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current Focus -->
+                        <div class="bg-gradient-to-r from-cyan-400/10 to-blue-500/10 p-8 rounded-lg border border-cyan-400/30 card-hover slide-in-right">
+                            <h3 class="text-2xl font-semibold text-slate-100 mb-4 flex items-center">
+                                <i class="fas fa-target text-cyan-400 mr-3 bounce"></i>
+                                Current Focus
+                            </h3>
+                            <p class="text-slate-300 mb-4">
+                                I'm currently diving deep into cloud infrastructure automation and AI-powered development tools. 
+                                Also working on developing comprehensive IT strategy frameworks for small to medium enterprises.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-cyan-400/20 text-cyan-400 px-3 py-1 rounded-full text-sm card-hover">Cloud Infrastructure</span>
+                                <span class="bg-cyan-400/20 text-cyan-400 px-3 py-1 rounded-full text-sm card-hover">AI Development Tools</span>
+                                <span class="bg-cyan-400/20 text-cyan-400 px-3 py-1 rounded-full text-sm card-hover">IT Strategy</span>
+                                <span class="bg-cyan-400/20 text-cyan-400 px-3 py-1 rounded-full text-sm card-hover">Analytics Strategy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications & Education -->
+                <div class="grid lg:grid-cols-2 gap-8 mt-16">
+                    <!-- Education -->
+                    <div class="bg-slate-900 p-8 rounded-lg border border-slate-700 card-hover fade-in">
+                        <h3 class="text-2xl font-semibold text-slate-100 mb-6 flex items-center">
+                            <i class="fas fa-graduation-cap text-cyan-400 mr-3 bounce"></i>
+                            Education & Certifications
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 bg-slate-800 rounded-lg card-hover">
+                                <i class="fas fa-university text-cyan-400 mr-4 floating"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-100">BSc Information Communication Technology</h4>
+                                    <p class="text-slate-400 text-sm">Comprehensive foundation in computing, information systems, and analytics</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-slate-800 rounded-lg card-hover">
+                                <i class="fas fa-award text-cyan-400 mr-4 floating"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-100">Full Stack Development Certification</h4>
+                                    <p class="text-slate-400 text-sm">Advanced web development technologies and frameworks</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-slate-800 rounded-lg card-hover">
+                                <i class="fas fa-chart-bar text-cyan-400 mr-4 floating"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-100">Data Analytics Training</h4>
+                                    <p class="text-slate-400 text-sm">Data-driven analytics methodologies, SQL, Python for analytics, and business intelligence best practices</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-slate-800 rounded-lg card-hover">
+                                <i class="fab fa-aws text-cyan-400 mr-4 floating"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-100">Cloud Infrastructure</h4>
+                                    <p class="text-slate-400 text-sm">AWS and cloud computing technologies</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-slate-800 rounded-lg card-hover">
+                                <i class="fas fa-shield-alt text-cyan-400 mr-4 floating"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-100">Intro to Cybersecurity (Certificate earned)</h4>
+                                    <p class="text-slate-400 text-sm">Foundational cybersecurity concepts — threats, defenses, and best practices. Certificate earned.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center p-3 bg-slate-800 rounded-lg card-hover">
+                                <i class="fas fa-microchip text-cyan-400 mr-4 floating"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-100">Intro to IoT (Certificate earned)</h4>
+                                    <p class="text-slate-400 text-sm">Basics of Internet of Things: sensors, connectivity, and edge computing. Certificate earned.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-slate-800 rounded-lg card-hover">
+                                <i class="fab fa-python text-cyan-400 mr-4 floating"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-100">Python Programming (Certificate earned)</h4>
+                                    <p class="text-slate-400 text-sm">Fundamentals of Python programming: scripting, data structures, and basic automation. Certificate earned.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fun Facts -->
+                    <div class="bg-slate-900 p-8 rounded-lg border border-slate-700 card-hover fade-in">
+                        <h3 class="text-2xl font-semibold text-slate-100 mb-6 flex items-center">
+                            <i class="fas fa-star text-cyan-400 mr-3 bounce"></i>
+                            Beyond Technology
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="text-center p-4 bg-slate-800 rounded-lg fun-fact-card">
+                                <i class="fas fa-coffee text-cyan-400 text-2xl mb-2 fun-fact-icon"></i>
+                                <h4 class="font-semibold text-slate-100 mb-1">Coffee Enthusiast</h4>
+                                <p class="text-slate-400 text-xs">Fueled by quality coffee and strategic thinking</p>
+                            </div>
+                            <div class="text-center p-4 bg-slate-800 rounded-lg fun-fact-card">
+                                <i class="fas fa-book text-cyan-400 text-2xl mb-2 fun-fact-icon"></i>
+                                <h4 class="font-semibold text-slate-100 mb-1">Continuous Learner</h4>
+                                <p class="text-slate-400 text-xs">Always exploring new technologies and methodologies</p>
+                            </div>
+                            <div class="text-center p-4 bg-slate-800 rounded-lg fun-fact-card">
+                                <i class="fas fa-chess text-cyan-400 text-2xl mb-2 fun-fact-icon"></i>
+                                <h4 class="font-semibold text-slate-100 mb-1">Strategic Thinker</h4>
+                                <p class="text-slate-400 text-xs">Chess player who enjoys complex problem-solving</p>
+                            </div>
+                            <div class="text-center p-4 bg-slate-800 rounded-lg fun-fact-card">
+                                <i class="fas fa-music text-cyan-400 text-2xl mb-2 fun-fact-icon"></i>
+                                <h4 class="font-semibold text-slate-100 mb-1">Music Lover</h4>
+                                <p class="text-slate-400 text-xs">Jazz and classical for focused work sessions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="text-center mt-16 fade-in">
+                    <div class="bg-gradient-to-r from-cyan-400/10 to-blue-500/10 p-8 rounded-lg border border-cyan-400/30">
+                        <h3 class="text-2xl font-semibold text-slate-100 mb-4">Let's Work Together</h3>
+                        <p class="text-slate-300 mb-6 max-w-2xl mx-auto">
+                            Ready to bring your ideas to life? I'm passionate about helping businesses leverage technology 
+                            to achieve their goals. Let's discuss how we can create something amazing together.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <a href="./contact.html" class="cta-button bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 px-8 py-4 rounded-lg font-semibold hover:from-cyan-300 hover:to-blue-400">
+                                <i class="fas fa-paper-plane mr-2"></i>Start a Project
+                            </a>
+                            <a href="./projects.html" class="cta-button bg-slate-800 text-slate-300 px-8 py-4 rounded-lg font-semibold border border-slate-600 hover:border-cyan-400 hover:text-cyan-400">
+                                <i class="fas fa-eye mr-2"></i>View My Work
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // NEW JAVASCRIPT INTERACTIVITY
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Custom cursor
+        document.addEventListener('mousemove', function(e) {
+            const cursor = document.getElementById('cursorFollower');
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeIcon = document.getElementById('darkModeIcon');
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                if (document.body.classList.contains('light-mode')) {
+                    darkModeIcon.classList.remove('fa-moon');
+                    darkModeIcon.classList.add('fa-sun');
+                    document.body.style.backgroundColor = '#f8fafc';
+                    document.body.style.color = '#1e293b';
+                } else {
+                    darkModeIcon.classList.remove('fa-sun');
+                    darkModeIcon.classList.add('fa-moon');
+                    document.body.style.backgroundColor = '#0f172a';
+                    document.body.style.color = '#cbd5e1';
+                }
+            });
+        }
+
+        // Particle background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particlesContainer');
+            if (!particlesContainer) return;
+            
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate skill bars when they come into view
+                    if (entry.target.querySelector('.skill-progress')) {
+                        setTimeout(() => {
+                            const skillBars = entry.target.querySelectorAll('.skill-progress');
+                            skillBars.forEach(bar => {
+                                const width = bar.getAttribute('data-width');
+                                bar.style.width = `${width}%`;
+                            });
+                        }, 300);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize animations immediately for elements in viewport
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.classList.add('visible');
+                }
+            });
+        }, 100);
+
+        // Card hover interactions
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+
+            // Click effect
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-5px)';
+                }, 150);
+            });
+        });
+
+        // Fun fact card interactions
+        document.querySelectorAll('.fun-fact-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-10px) scale(1.05)';
+                }, 150);
+            });
+        });
+
+        // Timeline item animations
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Floating icon interactions
+        document.querySelectorAll('.floating').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.animation = 'bounce 0.5s';
+            });
+            
+            icon.addEventListener('animationend', function() {
+                this.style.animation = 'floating 3s ease-in-out infinite';
+            });
+        });
+
+        // Bounce icon interactions
+        document.querySelectorAll('.bounce').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.animation = 'bounce 0.5s';
+            });
+            
+            icon.addEventListener('animationend', function() {
+                this.style.animation = 'bounce 2s infinite';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation active state
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-cyan-400');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('text-cyan-400');
+                }
+            });
+        });
+    </script>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <strong class="text-white">Geoffrey Akoo</strong>
+                <div class="text-slate-400 text-sm">Web Development • Data Analytics • Business Intelligence</div>
+            </div>
+
+            <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                <a href="https://mail.google.com/mail/?view=cm&to=geofreyakoo@gmail.com" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fas fa-envelope fa-lg"></i></a>
+                <a href="https://github.com/geoffreyakoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://facebook.com/geoffrey.akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="https://instagram.com/geoffrey.akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="https://twitter.com/geoffrey_akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="https://linkedin.com/in/geoffrey-akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

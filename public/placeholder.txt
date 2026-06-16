@@ -1,0 +1,1 @@
+Public directory for static assets: add favicon, resume, images, etc.

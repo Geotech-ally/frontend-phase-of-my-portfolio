@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Geoffrey Akoo</title>
+    <meta name="description" content="Portfolio and case studies by Geoffrey Akoo — web development, data analytics, IT consulting and specialist services.">
+    <meta name="author" content="Geoffrey Akoo">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --success: #2ecc71;
+        }
+        /* Navigation */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .site-nav .nav-inner {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .site-nav .brand a {
+            text-decoration: none;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.125rem;
+        }
+
+        .site-nav .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .site-nav .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .site-nav .nav-links a:hover {
+            background: rgba(52,152,219,0.08);
+        }
+
+        .site-nav .mobile-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.show {
+            display: block;
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .mobile-menu .mobile-links {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .site-nav .nav-links { display: none; }
+            .site-nav .mobile-toggle { display: inline-block; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: white;
+            border: 1px solid var(--gray);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .portfolio-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .portfolio-img {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+        
+        .portfolio-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .portfolio-content p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .portfolio-tag {
+            background: var(--light);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .portfolio-tag.web-dev {
+            background: rgba(52, 152, 219, 0.2);
+            color: var(--secondary);
+        }
+        
+        .portfolio-tag.network {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+        }
+
+        .portfolio-tag.analytics {
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--secondary);
+        }
+        
+        .portfolio-tag.consulting {
+            background: rgba(155, 89, 182, 0.2);
+            color: #9b59b6;
+        }
+        
+        .portfolio-tag.specialist {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f39c12;
+        }
+        
+        .portfolio-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 80%;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== INTERACTIVE CSS ENHANCEMENTS ===== */
+
+        /* Global Transitions & Active States */
+        a, button, .btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        button:active, a:active, .btn:active {
+            transform: scale(0.95);
+        }
+
+        button:focus, input:focus {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Filter Button Ripple Effect */
+        .filter-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(100, 255, 218, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .filter-btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Portfolio Item Gradient Overlay */
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Navigation Link Underline */
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Portfolio Tag Interactive */
+        .portfolio-tag {
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-tag:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Button Shimmer Effect */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Card Image Zoom & Rotation */
+        .portfolio-img img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        /* Portfolio Content Perspective */
+        .portfolio-content {
+            perspective: 1000px;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-content {
+            transform: translateZ(10px);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+        }
+
+        .site-footer .footer-inner {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .site-footer .social a {
+            color: #9ca3af;
+            margin-left: 0.75rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .site-footer .social a:hover { color: #64ffda; background: rgba(100,255,218,0.03); }
+    </style>
+</head>
+<body>
+    <!-- Site Navigation -->
+    <nav class="site-nav" role="navigation" aria-label="Primary">
+            <div class="nav-inner">
+            <div class="brand"><a href="./index.html">Geoffrey Akoo</a></div>
+            <div class="nav-links">
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html">Services</a>
+                <a href="./projects.html" aria-current="page">Projects</a>
+                <a href="./blogs.html">Blog</a>
+                <a href="./contact.html">Contact</a>
+            </div>
+            <button id="mobileMenuButton" class="mobile-toggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle navigation">☰</button>
+        </div>
+        <div id="mobileMenu" class="mobile-menu" role="menu" aria-hidden="true">
+            <div class="mobile-links">
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html">Services</a>
+                <a href="./projects.html">Projects</a>
+                <a href="./blogs.html">Blog</a>
+                <a href="./contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- spacer for fixed nav -->
+    <div style="height:64px;"></div>
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Portfolio & Case Studies</h2>
+                <p>Explore my professional projects across web development, data analytics, analytics consulting, and technical specialist roles</p>
+            </div>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web-dev">Web Development</button>
+                <button class="filter-btn" data-filter="analytics">Data Analytics</button>
+                <button class="filter-btn" data-filter="consulting">IT Consulting</button>
+                <button class="filter-btn" data-filter="specialist">IT Specialist</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Web Development Projects -->
+                <div class="portfolio-item" data-category="web-dev">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="E-commerce Platform">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Enterprise E-commerce Platform</h3>
+                        <p>Developed a full-stack e-commerce solution with React frontend, Node.js backend, and MongoDB database. Features include user authentication, payment processing, and inventory management.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag web-dev">Web Development</span>
+                            <span class="portfolio-tag">React</span>
+                            <span class="portfolio-tag">Node.js</span>
+                            <span class="portfolio-tag">MongoDB</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="web-dev">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Corporate Website">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Corporate Business Website</h3>
+                        <p>Designed and developed a responsive corporate website with CMS integration, SEO optimization, and performance enhancements. Increased organic traffic by 45%.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag web-dev">Web Development</span>
+                            <span class="portfolio-tag">WordPress</span>
+                            <span class="portfolio-tag">PHP</span>
+                            <span class="portfolio-tag">SEO</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Analytics Projects -->
+                <div class="portfolio-item" data-category="analytics">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Customer Churn Analysis">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Customer Churn Analysis</h3>
+                        <p>Built a churn prediction model and interactive dashboard for a subscription business, helping stakeholders identify at-risk customers and improve retention.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag analytics">Data Analytics</span>
+                            <span class="portfolio-tag">Python</span>
+                            <span class="portfolio-tag">SQL</span>
+                            <span class="portfolio-tag">Tableau</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Case Study</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="analytics">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1563013546-77f6835926d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Sales Forecasting & Dashboarding">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Sales Forecasting & BI Dashboard</h3>
+                        <p>Delivered a forecasting pipeline and interactive BI dashboard that improved inventory planning and revenue forecasting accuracy.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag analytics">Data Analytics</span>
+                            <span class="portfolio-tag">Power BI</span>
+                            <span class="portfolio-tag">Python</span>
+                            <span class="portfolio-tag">Forecasting</span>
+                            <span class="portfolio-tag">ETL</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Case Study</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- IT Consulting Projects -->
+                <div class="portfolio-item" data-category="consulting">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Digital Transformation">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Digital Transformation Strategy</h3>
+                        <p>Developed and implemented a comprehensive digital transformation roadmap for a manufacturing company, resulting in 40% operational efficiency improvement.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag consulting">IT Consulting</span>
+                            <span class="portfolio-tag">Strategy</span>
+                            <span class="portfolio-tag">Digital Transformation</span>
+                            <span class="portfolio-tag">Process Optimization</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Case Study</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="consulting">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="IT Assessment">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>IT Infrastructure Assessment</h3>
+                        <p>Conducted a comprehensive IT infrastructure assessment for a healthcare organization, identifying security vulnerabilities and recommending improvements that reduced risk by 60%.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag consulting">IT Consulting</span>
+                            <span class="portfolio-tag">Assessment</span>
+                            <span class="portfolio-tag">Tableau</span>
+                            <span class="portfolio-tag">Compliance</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Case Study</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- IT Specialist Projects -->
+                <div class="portfolio-item" data-category="specialist">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="System Implementation">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>ERP System Implementation</h3>
+                        <p>Managed the end-to-end implementation of an ERP system for a retail chain with 50+ locations, including customization, data migration, and staff training.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag specialist">IT Specialist</span>
+                            <span class="portfolio-tag">ERP</span>
+                            <span class="portfolio-tag">Implementation</span>
+                            <span class="portfolio-tag">Training</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Case Study</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="specialist">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Cybersecurity">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Cybersecurity Enhancement</h3>
+                            <p>Implemented comprehensive cybersecurity measures including endpoint protection, network monitoring, and employee training, reducing security incidents by 75%.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag specialist">IT Specialist</span>
+                            <span class="portfolio-tag">Cybersecurity</span>
+                            <span class="portfolio-tag">Endpoint Protection</span>
+                            <span class="portfolio-tag">Training</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-outline">Case Study</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <strong class="text-white">Geoffrey Akoo</strong>
+                <div class="text-slate-400 text-sm">Web Development • Data Analytics • Business Intelligence</div>
+            </div>
+
+            <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                <a href="https://mail.google.com/mail/?view=cm&to=geofreyakoo@gmail.com" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fas fa-envelope fa-lg"></i></a>
+                <a href="https://github.com/geoffreyakoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://facebook.com/geoffrey.akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="https://instagram.com/geoffrey.akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="https://twitter.com/geoffrey_akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="https://linkedin.com/in/geoffrey-akoo" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-cyan-400"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Portfolio Filtering + Mobile menu behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Mobile menu toggle (accessibility-aware)
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            function openMobileMenu() {
+                mobileMenu.classList.add('show');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                mobileMenu.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('show');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+            }
+
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function(e) {
+                    const isOpen = mobileMenu.classList.contains('show');
+                    if (isOpen) closeMobileMenu(); else openMobileMenu();
+                });
+            }
+
+            // Close when clicking a mobile link
+            document.querySelectorAll('#mobileMenu a').forEach(link => {
+                link.addEventListener('click', function() { closeMobileMenu(); });
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeMobileMenu();
+            });
+
+            // Close if clicking outside menu when open
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu || !mobileMenuButton) return;
+                if (!mobileMenu.classList.contains('show')) return;
+                const target = e.target;
+                if (!mobileMenu.contains(target) && !mobileMenuButton.contains(target)) closeMobileMenu();
+            });
+        });
+    </script>
+</body>
+</html>
